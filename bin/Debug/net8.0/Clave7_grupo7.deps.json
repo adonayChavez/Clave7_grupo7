@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Clave7_grupo7/1.0.0": {
+        "runtime": {
+          "Clave7_grupo7.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Clave7_grupo7/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

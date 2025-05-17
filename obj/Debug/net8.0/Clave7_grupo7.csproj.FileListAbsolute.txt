@@ -1,0 +1,14 @@
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\bin\Debug\net8.0\Clave7_grupo7.exe
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\bin\Debug\net8.0\Clave7_grupo7.deps.json
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\bin\Debug\net8.0\Clave7_grupo7.runtimeconfig.json
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\bin\Debug\net8.0\Clave7_grupo7.dll
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\bin\Debug\net8.0\Clave7_grupo7.pdb
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.AssemblyInfoInputs.cache
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.AssemblyInfo.cs
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.csproj.CoreCompileInputs.cache
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.dll
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\refint\Clave7_grupo7.dll
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.pdb
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.genruntimeconfig.cache
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\ref\Clave7_grupo7.dll
