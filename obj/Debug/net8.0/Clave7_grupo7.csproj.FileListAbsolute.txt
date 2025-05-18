@@ -12,3 +12,4 @@ C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS
 C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.pdb
 C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.genruntimeconfig.cache
 C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\ref\Clave7_grupo7.dll
+C:\Users\Ing. Adonay Chàvez\Desktop\Universidad El Salvador\Ciclo 1\FUNDAMENTOS DE LA PROGRAMCION\Clave7_grupo7\obj\Debug\net8.0\Clave7_grupo7.sourcelink.json

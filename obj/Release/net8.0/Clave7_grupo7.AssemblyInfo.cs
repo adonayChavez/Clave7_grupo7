@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Clave7_grupo7")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+032709f95eec103b5adc5e3cd3bbad89854b690e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Clave7_grupo7")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Clave7_grupo7")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
