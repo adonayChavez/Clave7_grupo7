@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 
 struct Tarea
@@ -8,19 +9,19 @@ struct Tarea
     public DateTime FechaDeVencimiento;
     public bool Completada;
     public string CreadoPor;
-
-
-}
-
+};
 
 
 class Program
 {
+    
+
     public static void Main(string[] args)
     {
-
         List<Tarea> tareas = new List<Tarea>();
 
+
+      
         //menu
         while (true) {
             Console.WriteLine("""
@@ -51,7 +52,7 @@ class Program
                     ordenarTareas();
                     break;
                 case 4:
-                    MostrarTareasAVencer();
+                    MostrarTareasAVencer(tareas);
                     break;
                 case 5:
                     MarcarTareaComoCompletada();
@@ -68,14 +69,21 @@ class Program
 
     }
 
+
     private static void MarcarTareaComoCompletada()
     {
         throw new NotImplementedException();
     }
 
-    private static void MostrarTareasAVencer()
+     private static void MostrarTareasAVencer(List<Tarea> tareas)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Lista de tareas: ");
+        foreach(var tarea in tareas)
+        {
+            Console.WriteLine($"Tarea: {tarea.Descripcion}-vence: {tarea.FechaDeVencimiento}-Creador por: {tarea.CreadoPor}");
+        }
+        Console.WriteLine("Ingrese cualquier tecla para volver al menu principal");
+        Console.ReadKey();
     }
 
     private static void ordenarTareas()
@@ -106,6 +114,7 @@ class Program
             Completada = false,
             CreadoPor = creador
         };
+
         listaTareas.Add(tareaNueva);
         Console.WriteLine("Tarea agragada con exito");
         Console.WriteLine("Presiona cualquier tecla para volver al menu principal");
