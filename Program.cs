@@ -85,7 +85,7 @@ class Program
         //validar que la lista de tareas no este vacia
         if (listaTareas == null|listaTareas.Length == 0 )
         {
-            Console.WriteLine("La lista de tareas esta vacia. Intenta agregar una nueva tarea antes");
+            Console.WriteLine("(!) La lista de tareas esta vacia. Intenta agregar una nueva tarea antes");
             return;
         }
         else Console.WriteLine("-----------------------Lista de tareas ordenas por fecha de vencimiento---------------------");
@@ -123,13 +123,25 @@ class Program
     private static void crearNuevaTarea()
     {
         int nuevasTareas;
+        String descripcion;
+        DateTime fechaDeVencimiento;
+        bool entradaValida;
 
-        Console.Write("¿Cuantas tareas quieres agregar esta vez?");
-        nuevasTareas = int.Parse(Console.ReadLine());
+        do
+        {
+            Console.Write("¿Cuantas tareas quieres agregar esta vez? ");
+            entradaValida = int.TryParse(Console.ReadLine(), out nuevasTareas);
+
+            if (!entradaValida||nuevasTareas<=0)
+            {
+                Console.WriteLine("(!) Debes ingresa un valor valido");
+            }
+        }
+        while (!entradaValida||nuevasTareas<=0);
 
         //creacion de nuevo arreglo con espacio 
         Tarea[] nuevoArreglo = new Tarea[cantidadDeTareas + nuevasTareas];
-        //copiar las tareas axistentes al nuevo arreglo
+        //copiar las tareas existentes al nuevo arreglo
         for (int i = 0; i < cantidadDeTareas; i++)
         {
             nuevoArreglo[i] = listaTareas[i];
@@ -138,13 +150,29 @@ class Program
         //agregar nuevas tareas
         for (int i = cantidadDeTareas; i < cantidadDeTareas + nuevasTareas; i++)
         {
-            Console.WriteLine($"ingresando tarea {i + 1}:");
-            Console.Write("Descripccion: ");
-            String descripcion = Console.ReadLine();
+            Console.WriteLine($"*****ingresando tarea {i + 1}:*****");
+            //validacion para la descripcion
+            do
+            {
+                Console.Write("Descripccion: ");
+                descripcion=Console.ReadLine();
+                if (descripcion==""||descripcion==" ")
+                {
+                    Console.WriteLine("(!) La descripcion de la tarea no puede estar vacia.");
+                }
+            }
+            while (descripcion==""||descripcion==" ");
 
-            DateTime fechaDeVencimiento;
-            Console.Write("Fecha de vencimeinto (YYYY-MM.DD):");
-            fechaDeVencimiento = DateTime.Parse(Console.ReadLine());
+            do
+            {
+                Console.Write("Fecha de vencimeinto (YYYY-MM.DD):");
+                entradaValida=DateTime.TryParse(Console.ReadLine(), out fechaDeVencimiento);
+                if (!entradaValida)
+                {
+                    Console.WriteLine("(!) Fecha invalida. intenta nuevamente.");
+                }
+            }
+            while (!entradaValida);
 
             nuevoArreglo[i] = new Tarea
             {
@@ -160,7 +188,7 @@ class Program
 
         Console.WriteLine("Todas las tareas han sido agregadas con exito");
         Console.WriteLine();
-        Console.Write("Presiona cualquier tecla para volver al menu principal_");
+        Console.Write("Presiona cualquier tecla para volver al menu principal");
         Console.ReadKey();
     }
 } 
