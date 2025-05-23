@@ -7,21 +7,21 @@ struct Tarea
 {
     public string Descripcion;
     public DateTime FechaDeVencimiento;
-    public bool Completada;
-    public string CreadoPor;
+    public bool Estado;
+   
 };
 
 
 class Program
 {
-    
+    static Tarea[] listaTareas = new Tarea[0];
+    static int cantidadDeTareas = 0;
 
     public static void Main(string[] args)
     {
-        List<Tarea> tareas = new List<Tarea>();
+         
+        
 
-
-      
         //menu
         while (true) {
             Console.WriteLine("""
@@ -29,7 +29,7 @@ class Program
                 ----------MENU PRINCIPAL-----------
                 1. Crear nueva tarea.
                 2. Editar tarea.
-                3. Ordenar tareas.
+                3. Ordenar y filtrar tareas.
                 4. Mostrar tareas proximas a vencer 
                 5. Marcar tarea como completada
                 6. Salir
@@ -43,16 +43,16 @@ class Program
             switch (opcion)
             {
                 case 1:
-                    crearNuevaTarea(tareas);
+                    crearNuevaTarea();
                     break;
                 case 2:
                     editarTarea();
                     break;
                 case 3:
-                    ordenarTareas();
+                    ordenarTareas(listaTareas);
                     break;
                 case 4:
-                    MostrarTareasAVencer(tareas);
+                    MostrarTareasAVencer();
                     break;
                 case 5:
                     MarcarTareaComoCompletada();
@@ -75,20 +75,44 @@ class Program
         throw new NotImplementedException();
     }
 
-     private static void MostrarTareasAVencer(List<Tarea> tareas)
-    {
-        Console.WriteLine("Lista de tareas: ");
-        foreach(var tarea in tareas)
-        {
-            Console.WriteLine($"Tarea: {tarea.Descripcion}-vence: {tarea.FechaDeVencimiento}-Creador por: {tarea.CreadoPor}");
-        }
-        Console.WriteLine("Ingrese cualquier tecla para volver al menu principal");
-        Console.ReadKey();
-    }
-
-    private static void ordenarTareas()
+     private static void MostrarTareasAVencer()
     {
         throw new NotImplementedException();
+    }
+
+    private static void ordenarTareas(Tarea[]listaTareas)
+    {
+        //validar que la lista de tareas no este vacia
+        if (listaTareas == null|listaTareas.Length == 0 )
+        {
+            Console.WriteLine("La lista de tareas esta vacia. Intenta agregar una nueva tarea antes");
+            return;
+        }
+        else Console.WriteLine("-----------------------Lista de tareas ordenas por fecha de vencimiento---------------------");
+
+        // Ordenamiento manual: Bubble Sort (simple para arreglos)
+        for (int i = 0; i < listaTareas.Length - 1; i++)
+        {
+            for (int j = i + 1; j < listaTareas.Length; j++)
+            {
+                if (listaTareas[i].FechaDeVencimiento > listaTareas[j].FechaDeVencimiento)
+                {
+                    // Intercambio de tareas (sin usar listas)
+                    Tarea temp = listaTareas[i];
+                    listaTareas[i] = listaTareas[j];
+                    listaTareas[j] = temp;
+                }
+            }
+        }
+
+        //recorrer y mostrar al usuario toda la lista de tareas
+        for (int i = 0; i < listaTareas.Length; i++)
+        {
+            Console.WriteLine($"{i + 1} Descripcion: {listaTareas[i].Descripcion}|Vence: {listaTareas[i].FechaDeVencimiento.ToShortDateString()}|Estado: {(listaTareas[i].Estado?"Completada":"En proceso")}");
+        }
+        Console.WriteLine();
+        Console.Write("Presiona cualquier tecla para volver al menu principal");
+        Console.ReadKey();
     }
 
     private static void editarTarea()
@@ -96,29 +120,47 @@ class Program
         throw new NotImplementedException();
     }
 
-    private static void crearNuevaTarea(List<Tarea> listaTareas)
+    private static void crearNuevaTarea()
     {
-        Console.WriteLine("Descripción de la tarea: ");
-        string descripcion = Console.ReadLine();
+        int nuevasTareas;
 
-        Console.WriteLine("fecha de vencimiento: ");
-        DateTime fechaVencimiento = DateTime.Parse(Console.ReadLine());
+        Console.Write("¿Cuantas tareas quieres agregar esta vez?");
+        nuevasTareas = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Ingresa tu nombre de usuario:");
-        string creador = Console.ReadLine();
-
-        Tarea tareaNueva = new Tarea
+        //creacion de nuevo arreglo con espacio 
+        Tarea[] nuevoArreglo = new Tarea[cantidadDeTareas + nuevasTareas];
+        //copiar las tareas axistentes al nuevo arreglo
+        for (int i = 0; i < cantidadDeTareas; i++)
         {
-            Descripcion = descripcion,
-            FechaDeVencimiento = fechaVencimiento,
-            Completada = false,
-            CreadoPor = creador
-        };
+            nuevoArreglo[i] = listaTareas[i];
+        }
 
-        listaTareas.Add(tareaNueva);
-        Console.WriteLine("Tarea agragada con exito");
-        Console.WriteLine("Presiona cualquier tecla para volver al menu principal");
+        //agregar nuevas tareas
+        for (int i = cantidadDeTareas; i < cantidadDeTareas + nuevasTareas; i++)
+        {
+            Console.WriteLine($"ingresando tarea {i + 1}:");
+            Console.Write("Descripccion: ");
+            String descripcion = Console.ReadLine();
+
+            DateTime fechaDeVencimiento;
+            Console.Write("Fecha de vencimeinto (YYYY-MM.DD):");
+            fechaDeVencimiento = DateTime.Parse(Console.ReadLine());
+
+            nuevoArreglo[i] = new Tarea
+            {
+                Descripcion = descripcion,
+                FechaDeVencimiento = fechaDeVencimiento,
+                Estado = false
+            };
+
+        }
+        //actualizar el arreglo y el contador de tareas
+        listaTareas = nuevoArreglo;
+        cantidadDeTareas += nuevasTareas;
+
+        Console.WriteLine("Todas las tareas han sido agregadas con exito");
+        Console.WriteLine();
+        Console.Write("Presiona cualquier tecla para volver al menu principal_");
         Console.ReadKey();
-
     }
 } 
