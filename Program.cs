@@ -8,18 +8,18 @@ struct Tarea
 {
     public string Descripcion;
     public DateTime FechaDeVencimiento;
-    public bool Estado;
+    public EstadoTarea Estado;
    
 };
 
-/*
+
 enum EstadoTarea
 {
     EnProceso,
     Completada,
     Vencida
 }
-*/
+
 
 class Program
 {
@@ -107,7 +107,7 @@ class Program
                 Tarea {i + 1}
                 Descripción: {listaTareas[i].Descripcion}
                 Vence: {listaTareas[i].FechaDeVencimiento}
-                Estado: {(listaTareas[i].Estado ? "Completada" : "En proceso")}
+                Estado: {listaTareas[i].Estado}
                 ---------------------------------------------------------------
                 """);
             }
@@ -125,7 +125,7 @@ class Program
             while (!entradaValida || numeroDeTarea <= 0 || numeroDeTarea > listaTareas.Length);
 
             //asegurar que esa tarea no haya sido marcada como completada antes.
-            if (listaTareas[numeroDeTarea - 1].Estado == true)
+            if (listaTareas[numeroDeTarea - 1].Estado == EstadoTarea.Completada)
             {
                 Console.WriteLine("Esa tarea ya ha sido marcada como completada");
                 Console.Write("Presiona cualquier tecla para volver al menu principal");
@@ -135,7 +135,7 @@ class Program
             }
 
             //modificar el estado como true "Completada"
-            listaTareas[numeroDeTarea - 1].Estado = true;
+            listaTareas[numeroDeTarea - 1].Estado = EstadoTarea.Completada;
             Console.WriteLine("Tarea marcada con éxito");
             Console.Write("Presiona cualquier tecla para volver al menu principal");
         Console.ReadKey();
@@ -178,7 +178,7 @@ class Program
                 Tarea {i + 1} 
                 Descripcion: {listaTareas[i].Descripcion}
                 Vence: {listaTareas[i].FechaDeVencimiento.ToShortDateString()}
-                Estado: {(listaTareas[i].Estado?"Completada":"En proceso")}
+                Estado: {listaTareas[i].Estado}
                 --------------------------------------------------------
                 """);
                 
@@ -207,7 +207,7 @@ class Program
                 Tarea {i + 1} 
                 Descripcion: {listaTareas[i].Descripcion}
                 Vence: {listaTareas[i].FechaDeVencimiento.ToShortDateString()}
-                Estado: {(listaTareas[i].Estado ? "Completada" : "En proceso")}
+                Estado: {(listaTareas[i].Estado)}
                 ------------------------------------------------------------------------
                 """);
                 
@@ -254,7 +254,7 @@ class Program
         //actualizar la tarea
         listaTareas[tareaAEditar].Descripcion = Nuevadescripcion;
         listaTareas[tareaAEditar].FechaDeVencimiento = NuevafechaDeVencimiento;
-        listaTareas[tareaAEditar].Estado = false; // Reiniciar el estado a "En proceso"
+        listaTareas[tareaAEditar].Estado = NuevafechaDeVencimiento < DateTime.Today ? EstadoTarea.Vencida: EstadoTarea.EnProceso; // Reiniciar el estado a "En proceso"
         Console.WriteLine("Tarea editada con exito");
         Console.WriteLine();
         Console.Write("Presiona cualquier tecla para volver al menu principal");
@@ -319,7 +319,7 @@ class Program
             {
                 Descripcion = descripcion,
                 FechaDeVencimiento = fechaDeVencimiento,
-                Estado = false
+                Estado = fechaDeVencimiento < DateTime.Today ? EstadoTarea.Vencida : EstadoTarea.EnProceso
             };
 
         }
@@ -332,7 +332,6 @@ class Program
         Console.Write("Presiona cualquier tecla para volver al menu principal");
         Console.ReadKey();
     }
-
     static (string nombre, string identificador, string correo) RegistrarUsuario()
     {
         string nombreUsuario, numeroIdentificacion, correoElectronico;
