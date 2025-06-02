@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
 struct Tarea
@@ -12,12 +13,17 @@ struct Tarea
    
 };
 
-
 enum EstadoTarea
 {
     EnProceso,
     Completada,
     Vencida
+}
+struct Usuario
+{
+    public string NombreUsuario;
+    public string NumeroIdentificacion;
+    public string CorreoElectronico;
 }
 
 
@@ -25,15 +31,17 @@ class Program
 {
     static Tarea[] listaTareas = new Tarea[0];
     static int cantidadDeTareas = 0;
+    static Usuario usuario;
+    
 
     public static void Main(string[] args)
     {
         Console.WriteLine("----------Bienvendio a nuestro programa de gestion de tareas----------");
         Console.WriteLine("A continuacion debes registrar tus datos");
-        var usuario = RegistrarUsuario();
+        usuario = RegistrarUsuario();
         Console.Clear();
-        Console.WriteLine($"Nombre: {usuario.nombre}\nDUI o Carnet: {usuario.identificador}\nCorreo: {usuario.correo}");
-        Console.WriteLine("Presiona cualquier tecla para continuar en al menú...");
+        Console.WriteLine($"Nombre: {usuario.NombreUsuario}\nDUI o Carnet: {usuario.NumeroIdentificacion}\nCorreo: {usuario.CorreoElectronico}");
+        Console.WriteLine("Presiona cualquier tecla para continuar al menú...");
         Console.ReadKey();
 
         //menu
@@ -44,10 +52,9 @@ class Program
                 ----------MENU PRINCIPAL-----------
                 1. Crear nueva tarea.
                 2. Editar tarea.
-                3. Ordenar y filtrar tareas.
-                4. Mostrar tareas proximas a vencer 
-                5. Marcar tarea como completada
-                6. Salir
+                3. Ordenar tareas por fecha y estado. 
+                4. Marcar tarea como completada
+                5. Salir
                 -----------------------------------
                 
                 """);
@@ -67,12 +74,9 @@ class Program
                     ordenarTareas(listaTareas);
                     break;
                 case 4:
-                    MostrarTareasAVencer();
-                    break;
-                case 5:
                     MarcarTareaComoCompletada(listaTareas);
                     break;
-                case 6:
+                case 5:
                     Console.WriteLine("Programa finalizado");
                     return;
                 default:
@@ -112,7 +116,7 @@ class Program
                 """);
             }
 
-            //sacar el dato de la tarea a modificar 
+            //sacar el dato de la trea a modificar 
             do
             {
                 Console.WriteLine("Ingresa el numero de tarea a la cual quieres marcar como completada");
@@ -140,12 +144,6 @@ class Program
             Console.Write("Presiona cualquier tecla para volver al menu principal");
         Console.ReadKey();
     }
-
-     private static void MostrarTareasAVencer()
-    {
-        Console.WriteLine();
-    }
-
     private static void ordenarTareas(Tarea[]listaTareas)
     {
         //validar que la lista de tareas no este vacia
@@ -154,7 +152,7 @@ class Program
             Console.WriteLine("(!) La lista de tareas esta vacia. Intenta agregar una nueva tarea antes");
             return;
         }
-        else Console.WriteLine("-----------------------Lista de tareas ordenas por fecha de vencimiento y Estado---------------------");
+        else Console.WriteLine("-----------------------Lista de tareas ordendas por fecha de vencimiento y Estado---------------------");
 
         // Ordenamiento manual: Bubble Sort (simple para arreglos)
         for (int i = 0; i < listaTareas.Length - 1; i++)
@@ -170,19 +168,25 @@ class Program
                 }
             }
         }
-
+        //imprimir los datos del usuario
+        MostrarDatosUsuario();
         //recorrer y mostrar al usuario toda la lista de tareas
         for (int i = 0; i < listaTareas.Length; i++)
         {
             Console.WriteLine($"""
-                Tarea {i + 1} 
-                Descripcion: {listaTareas[i].Descripcion}
-                Vence: {listaTareas[i].FechaDeVencimiento.ToShortDateString()}
-                Estado: {listaTareas[i].Estado}
-                --------------------------------------------------------
-                """);
-                
+                ---------------------------------------------------------------
+                |Tarea {i + 1} 
+                |Descripción: {listaTareas[i].Descripcion}
+                |Vence: {listaTareas[i].FechaDeVencimiento.ToShortDateString()} 
+                |Estado: [{listaTareas[i].Estado}] {gestionarVencimiento(listaTareas[i].FechaDeVencimiento, listaTareas[i].Estado)}
+                ---------------------------------------------------------------
+                """);        
         }
+        Console.WriteLine();
+        // salidas finales con uso de lambdas y el metodo Count para mas facilidad
+        Console.WriteLine($"Total de tareas: {listaTareas.Length}");
+        Console.WriteLine($"Total de tareas vencidas: {listaTareas.Count(t => t.Estado == EstadoTarea.Vencida)}");
+        Console.WriteLine($"Tareas a vencer en los proximos 5 dias: {listaTareas.Count(t => (t.FechaDeVencimiento - DateTime.Today).Days <= 5 && (t.FechaDeVencimiento - DateTime.Today).Days > 0)}");
         Console.WriteLine();
         Console.Write("Presiona cualquier tecla para volver al menu principal");
         Console.ReadKey();
@@ -204,10 +208,11 @@ class Program
         for (int i = 0; i < listaTareas.Length; i++)
         {
             Console.WriteLine($"""
-                Tarea {i + 1} 
-                Descripcion: {listaTareas[i].Descripcion}
-                Vence: {listaTareas[i].FechaDeVencimiento.ToShortDateString()}
-                Estado: {(listaTareas[i].Estado)}
+                
+                |Tarea {i + 1} 
+                |Descripcion: {listaTareas[i].Descripcion}
+                |Vence: {listaTareas[i].FechaDeVencimiento.ToShortDateString()}
+                |sEstado: {(listaTareas[i].Estado)}
                 ------------------------------------------------------------------------
                 """);
                 
@@ -275,7 +280,7 @@ class Program
 
             if (!entradaValida||nuevasTareas<=0)
             {
-                Console.WriteLine("(!) Debes ingresa un valor valido");
+                Console.WriteLine("(!) Debes ingresar un valor valido");
             }
         }
         while (!entradaValida||nuevasTareas<=0);
@@ -332,10 +337,11 @@ class Program
         Console.Write("Presiona cualquier tecla para volver al menu principal");
         Console.ReadKey();
     }
-    static (string nombre, string identificador, string correo) RegistrarUsuario()
+    static Usuario RegistrarUsuario()
     {
-        string nombreUsuario, numeroIdentificacion, correoElectronico;
+        Usuario usuario = new Usuario();
         bool valido = true;
+        string nombreUsuario, numeroIdentificacion, correoElectronico;
 
         do
         {
@@ -489,8 +495,36 @@ class Program
                 }
             }
         } while (!valido);
-        return (nombreUsuario, numeroIdentificacion, correoElectronico);
+        usuario = new Usuario
+        {
+            NombreUsuario = nombreUsuario,
+            NumeroIdentificacion = numeroIdentificacion,
+            CorreoElectronico = correoElectronico
+        };
+        return usuario;
 
     }
+
+    private static string gestionarVencimiento(DateTime fechaDeVencimiento, EstadoTarea estado)
+    {
+        if (estado == EstadoTarea.Completada)
+            return "";
+        int diasRestantes = (fechaDeVencimiento - DateTime.Today).Days;
+
+        if (diasRestantes > 0)
+            return $"(Vence en {diasRestantes} dias)";
+        else if (diasRestantes == 0)
+            return $"((!) La tarea vence hoy)";
+        else
+            return $"(Vencio hace {-diasRestantes} dias)";
+    }
+
+    static void MostrarDatosUsuario()
+    {
+        Console.WriteLine($"Nombre: {usuario.NombreUsuario}\nDUI o Carnet: {usuario.NumeroIdentificacion}\nCorreo: {usuario.CorreoElectronico}");
+    }
+
+
+
 
 }
